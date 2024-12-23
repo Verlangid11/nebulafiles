@@ -22,16 +22,16 @@ show_progress() {
     clear
     echo -e "${CYAN}============================================================${RESET}"
     echo -e "${BOLD}${COLOR}PROSES: ${percent}% - ${message}${RESET}"
-    echo -e "${GREEN}      © VERLANG - ID X NEBULA THEME${RESET}"
+    echo -e "${GREEN}      © VERLANGID X NEBULA THEME${RESET}"
     echo -e "${CYAN}============================================================${RESET}"
     sleep 2
 }
 
 clear
 echo -e "${CYAN}============================================================${RESET}"
-echo -e "${BOLD}${CYAN}          🚀 SELAMAT DATANG DI VERLANG-ID INSTALLER 🚀${RESET}"
+echo -e "${BOLD}${CYAN}          🚀 SELAMAT DATANG DI VERLANGID INSTALLER 🚀${RESET}"
 echo -e "${CYAN}============================================================${RESET}"
-echo -e "${GREEN}            © NEBULA INSTALLER BY VERLANG - ID              ${RESET}"
+echo -e "${GREEN}            © NEBULA INSTALLER BY VERLANGID   ${RESET}"
 echo -e "${CYAN}============================================================${RESET}"
 sleep 3
 
@@ -74,5 +74,5 @@ show_progress 100 "Instalasi Nebula Theme Selesai!"
 clear
 echo -e "${CYAN}============================================================${RESET}"
 echo -e "${GREEN}                   🎉 INSTALL SELESAI 🎉                   ${RESET}"
-echo -e "${GREEN}                      © VERLANG - ID                       ${RESET}"
+echo -e "${GREEN}                      © VERLANGID                       ${RESET}"
 echo -e "${CYAN}============================================================${RESET}"
