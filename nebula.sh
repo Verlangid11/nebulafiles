@@ -1,39 +1,78 @@
+#!/bin/bash
+
+RED='\033[0;31m'
+ORANGE='\033[0;33m'
+GREEN='\033[0;32m'
+CYAN='\033[0;36m'
+BOLD='\033[1m'
+RESET='\033[0m'
+
+show_progress() {
+    local percent=$1
+    local message=$2
+
+    if [ "$percent" -le 40 ]; then
+        COLOR=$RED
+    elif [ "$percent" -le 70 ]; then
+        COLOR=$ORANGE
+    else
+        COLOR=$GREEN
+    fi
+
+    clear
+    echo -e "${CYAN}============================================================${RESET}"
+    echo -e "${BOLD}${COLOR}PROSES: ${percent}% - ${message}${RESET}"
+    echo -e "${GREEN}      © VERLANG - ID X NEBULA THEME${RESET}"
+    echo -e "${CYAN}============================================================${RESET}"
+    sleep 2
+}
+
+clear
+echo -e "${CYAN}============================================================${RESET}"
+echo -e "${BOLD}${CYAN}          🚀 SELAMAT DATANG DI VERLANG-ID INSTALLER 🚀${RESET}"
+echo -e "${CYAN}============================================================${RESET}"
+echo -e "${GREEN}            © NEBULA INSTALLER BY VERLANG - ID              ${RESET}"
+echo -e "${CYAN}============================================================${RESET}"
+sleep 3
+
+show_progress 10 "Masuk ke direktori Pterodactyl..."
 cd /var/www/pterodactyl
- php artisan down
-curl -L https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz | tar -xzv 
+php artisan down > /dev/null 2>&1
 
-chmod -R 755 storage/* bootstrap/cache 
+show_progress 20 "Mengunduh dan mengekstrak file panel terbaru..."
+curl -L https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz | tar -xzv > /dev/null 2>&1
 
-composer install --no-dev --optimize-autoloader --no-interaction
+show_progress 30 "Mengatur izin folder penting..."
+chmod -R 755 storage/* bootstrap/cache > ©
 
-php artisan view:clear
+show_progress 40 "Menginstal dependensi composer..."
+composer install --no-dev --optimize-autoloader --no-interaction > /dev/null 2>&1
 
-php artisan config:clear
+show_progress 50 "Membersihkan cache..."
+php artisan view:clear > /dev/null 2>&1
+php artisan config:clear > /dev/null 2>&1
 
-php artisan migrate --seed --force
-chown -R www-data:www-data /var/www/pterodactyl/*
-php artisan up
-        echo "Semua tema dan addon telah dihapus."
-        echo "PROSES PEMASANGAN NEBULA THEME"
-sudo apt-get install -y ca-certificates curl gnupg
-sudo mkdir -p /etc/apt/keyrings
-sudo rm -f /etc/apt/keyrings/nodesource.gpg
-curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
-apt-get update
-apt-get install -y nodejs
-npm i -g yarn
+show_progress 60 "Menjalankan migrasi database..."
+php artisan migrate --seed --force > /dev/null 2>&1
+
+show_progress 70 "Mengatur hak milik folder..."
+chown -R www-data:www-data /var/www/pterodactyl/* > /dev/null 2>&1
+php artisan up > /dev/null 2>&1
+
+show_progress 80 "Memasang dependensi Nebula..."
+apt-get install -y nodejs > /dev/null 2>&1
+npm i -g yarn > /dev/null 2>&1
+
+show_progress 90 "Menyesuaikan konfigurasi Nebula..."
+wget "$(curl -s https://api.github.com/repos/BlueprintFramework/framework/releases/latest | grep 'browser_download_url' | cut -d '"' -f 4)" -O release.zip > /dev/null 2>&1
 cd /var/www/pterodactyl
-yarn
-yarn add cross-env
-apt install -y zip unzip git curl wget
-wget "$(curl -s https://api.github.com/repos/BlueprintFramework/framework/releases/latest | grep 'browser_download_url' | cut -d '"' -f 4)" -O release.zip
-mv release.zip var/www/pterodactyl/release.zip
-cd /var/www/pterodactyl
-yes A | unzip release.zip
-WEBUSER="www-data"; USERSHELL="/bin/bash"; PERMISSIONS="www-data:www-data";
-sed -i -E -e "s|WEBUSER=\"www-data\" #;|WEBUSER=\"$WEBUSER\" #;|g" -e "s|USERSHELL=\"/bin/bash\" #;|USERSHELL=\"$USERSHELL\" #;|g" -e "s|OWNERSHIP=\"www-data:www-data\" #;|OWNERSHIP=\"$PERMISSIONS\" #;|g" $FOLDER/blueprint.sh
+unzip -o release.zip > /dev/null 2>&1
 chmod +x blueprint.sh
-bash /var/www/pterodactyl/blueprint.sh < <(yes "y")
-cd /var/www/
-cd /var/www/pterodactyl && blueprint -install nebula < /dev/null
+bash /var/www/pterodactyl/blueprint.sh < <(yes "y") > /dev/null 2>&1
+
+show_progress 100 "Instalasi Nebula Theme Selesai!"
+clear
+echo -e "${CYAN}============================================================${RESET}"
+echo -e "${GREEN}                   🎉 INSTALL SELESAI 🎉                   ${RESET}"
+echo -e "${GREEN}                      © VERLANG - ID                       ${RESET}"
+echo -e "${CYAN}============================================================${RESET}"
