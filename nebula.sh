@@ -45,8 +45,10 @@ curl -L https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.
 show_progress 30 "Mengatur izin folder penting..."
 chmod -R 755 storage/* bootstrap/cache > ©
 
-show_progress 40 "Menginstal dependensi composer..."
+show_progress 40 "Menginstal dependensi"
 composer install --no-dev --optimize-autoloader --no-interaction > /dev/null 2>&1
+yarn add cross-env > /dev/null 2>&1
+yarn add react-feather > /dev/null 2>&1 
 
 show_progress 50 "Membersihkan cache..."
 php artisan view:clear > /dev/null 2>&1
