@@ -35,6 +35,16 @@ echo -e "${GREEN}            © NEBULA INSTALLER BY VERLANGID   ${RESET}"
 echo -e "${CYAN}============================================================${RESET}"
 sleep 3
 
+show_progress 1 "Memeriksa Files Theme Nebula"
+cd /var/www
+
+NEBULA_FILES="/var/www/pterodactyl/nebula.blueprint"
+
+if [ ! -f "$NEBULA_FILES" ]; then
+    echo "𝗡𝗘𝗕𝗨𝗟𝗔 𝗙𝗜𝗟𝗘𝗦 𝗧𝗜𝗗𝗔𝗞 𝗧𝗘𝗥𝗜𝗡𝗦𝗧𝗔𝗟"
+    exit 1
+fi
+
 show_progress 10 "Masuk ke direktori Pterodactyl..."
 cd /var/www/pterodactyl
 php artisan down > /dev/null 2>&1
