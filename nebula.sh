@@ -71,6 +71,8 @@ cd /var/www/pterodactyl
 unzip -o release.zip > /dev/null 2>&1
 chmod +x blueprint.sh
 bash /var/www/pterodactyl/blueprint.sh < <(yes "y") > /dev/null 2>&1
+cd /var/www/pterodactyl
+blueprint -install nebula < /dev/null
 
 show_progress 100 "Instalasi Nebula Theme Selesai!"
 clear
